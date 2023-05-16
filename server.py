@@ -39,10 +39,10 @@ parser.add_argument('-sf', '--save_freq', type=int, default=50, help='global mod
 parser.add_argument('-ncomm', '--num_comm', type=int, default=1000, help='number of communications')
 parser.add_argument('-sp', '--save_path', type=str, default='./checkpoints', help='the saving path of checkpoints')
 parser.add_argument('-iid', '--IID', type=int, default=1, help='the way to allocate data to clients')
-parser.add_argument('-threshold', '--thresholdValue', type=float, default=0, help='set the thresValue in repoison')
+parser.add_argument('-threshold', '--thresholdValue', type=float, default=0.8, help='set the thresValue in repoison')
 parser.add_argument('-dp', '--dropout', type=float, default=0.3, help='set the dropout level in net')
 parser.add_argument('-op', '--opti', type=str, default='SGD', help='set the opti in net')
-parser.add_argument('-poipro', '--poisonprob', type=float, default=0.2, help='poison data')
+parser.add_argument('-poipro', '--poisonprob', type=float, default=0.7, help='poison data')
 parser.add_argument('-revprob', '--reverseprob', type=float, default=0.5, help='set the reverprob')
 parser.add_argument('-repoi', '--repoisonalgorithms', type=str, default='trainBehavior', help='set the repoison algorithms')
 

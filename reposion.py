@@ -50,33 +50,25 @@ def trainBehavior(blockchain, threshold):
         # print(pearson_sim(blockchain[i].bp, blockchain[max_index].bp))
         if blockchain[i].get_accu() > thresholdVlaue and pearson_sim(blockchain[i].params, blockchain[max_index].params) > threshold:
             lst.append(i)
-    print("参与此次模型聚合的局部模型数量：" + str(len(lst)))
+    print("参与此次模型聚合的局部模型数量：" + str(len(lst)), "区块链中的下标", lst)
     w = []
     for i in lst:
         w.append(blockchain[i].get_para())
-    num = 0
-    non_malicious_count = len(lst)
-    distances = defaultdict(dict)
-    for k in w[0].keys():
-        if num == 0:
-            for i in range(len(w)):
-                for j in range(i):
-                    distances[i][j] = distances[j][i] = np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())
-            num = 1
-        else:
-            for i in range(len(w)):
-                for j in range(i):
-                    distances[j][i] += np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())   # 计算欧式距离
-                    distances[i][j] += distances[j][i]
-    minimal_error = 1e20
-    minimal_error_index = 0
-    for user in distances.keys():
-        errors = sorted(distances[user].values())
-        current_error = sum(errors[:non_malicious_count])
-        if current_error < minimal_error:
-            minimal_error = current_error
-            minimal_error_index = user
-    return w[minimal_error_index]
+    num_models = len(lst)
+    num_non_malicious = num_models
+    distances = np.zeros((num_models, num_models))
+    for i in range(num_models):
+        for j in range(i):
+            dist = 0
+            for param_name, param_value in w[i].items():
+                dist += np.linalg.norm(param_value - w[j][param_name])
+            distances[i, j] = distances[j, i] = dist
+
+    errors = np.sum(np.sort(distances, axis=1)[:, :num_non_malicious], axis=1)
+    krum_index = np.argmin(errors)
+
+    return w[krum_index]
+
 
 
 def krum(blockchain, args):  # w中存储的是所有分簇的模型参数 args存储标签反转数据信息
@@ -85,29 +77,20 @@ def krum(blockchain, args):  # w中存储的是所有分簇的模型参数 args�
     w = []
     for i in range(length-10, length):
         w.append(blockchain[i].get_para())
-    distances = defaultdict(dict)
-    non_malicious_count = int((args.num_users - args.atk_num))
-    num = 0
-    for k in w[0].keys():
-        if num == 0:
-            for i in range(len(w)):
-                for j in range(i):
-                    distances[i][j] = distances[j][i] = np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())
-            num = 1
-        else:
-            for i in range(len(w)):
-                for j in range(i):
-                    distances[j][i] += np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())   # 计算欧式距离
-                    distances[i][j] += distances[j][i]
-    minimal_error = 10
-    # minimal_error_index = random()
-    for user in distances.keys():
-        errors = sorted(distances[user].values())
-        current_error = sum(errors[:non_malicious_count])
-        if current_error < minimal_error:
-            minimal_error = current_error
-            minimal_error_index = user
-    return w[minimal_error_index]
+    num_models = len(w)
+    num_non_malicious = int((args.num_users - args.atk_num))
+    distances = np.zeros((num_models, num_models))
+    for i in range(num_models):
+        for j in range(i):
+            dist = 0
+            for param_name, param_value in w[i].items():
+                dist += np.linalg.norm(param_value - w[j][param_name])
+            distances[i, j] = distances[j, i] = dist
+
+    errors = np.sum(np.sort(distances, axis=1)[:, :num_non_malicious], axis=1)
+    krum_index = np.argmin(errors)
+
+    return w[krum_index]
 
 
 def medium(blockchain, args):
