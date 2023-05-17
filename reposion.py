@@ -54,8 +54,11 @@ def trainBehavior(blockchain, threshold):
     w = []
     for i in lst:
         w.append(blockchain[i].get_para())
-    num_models = len(lst)
-    num_non_malicious = num_models
+    num_models = len(w)
+    if num_models > 1:
+        num_non_malicious = num_models -1
+    else:
+        num_non_malicious = 0
     distances = np.zeros((num_models, num_models))
     for i in range(num_models):
         for j in range(i):
