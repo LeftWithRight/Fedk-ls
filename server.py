@@ -246,7 +246,7 @@ if __name__ == "__main__":
             global_parameters = trainBehavior(blockchain, args['thresholdValue'])
             print("使用训练行为模型验证，筛选出诚实节点")
         elif args['repoisonalgorithms'] == 'krum':
-            arguments = Args(k, 2, 0.8)
+            arguments = Args(k, 0, 1)
             global_parameters = krum(blockchain, arguments)
             print("使用krum安全聚合算法完成聚合")
         elif args['repoisonalgorithms'] == 'trimmed_mean':
