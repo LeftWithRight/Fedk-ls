@@ -129,19 +129,20 @@ def trimmed_mean(blockchain, args):
     w = []
     for i in range(length - 10, length):
         w.append(blockchain[i].get_para())
-    number_to_consider = int((args.num_users) * args.frac)
+    number_to_consider = int((args.num_users - args.atk_num) * args.frac) - 1
+    print(number_to_consider)
     w_avg = copy.deepcopy(w[0])
     for k in w_avg.keys():
         tmp = []
         for i in range(len(w)):
-            tmp.append(w[i][k].cpu().numpy())   # get the weight of k-layer which in each client
+            tmp.append(w[i][k].cpu().numpy()) # get the weight of k-layer which in each client
         tmp = np.array(tmp)
-        med = np.median(tmp, axis=0)
+        med = np.median(tmp,axis=0)
         new_tmp = []
-        for i in range(len(tmp)):               # cal each client weights - median
+        for i in range(len(tmp)):# cal each client weights - median
             new_tmp.append(tmp[i]-med)
         new_tmp = np.array(new_tmp)
-        good_vals = np.argsort(abs(new_tmp), axis=0)[:number_to_consider]
+        good_vals = np.argsort(np.abs(new_tmp), axis=0)[:number_to_consider]
         good_vals = np.take_along_axis(new_tmp, good_vals, axis=0)
         k_weight = np.array(np.mean(good_vals) + med)
         w_avg[k] = torch.from_numpy(k_weight)

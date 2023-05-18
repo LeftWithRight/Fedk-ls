@@ -202,6 +202,7 @@ class ClientsGroup(object):
 
             #将剩余一半的数据打乱
             order = np.arange(len(total_label_diff))
+            np.random.shuffle(order)
             total_label_diff = total_label_diff[order]
             total_image_diff = total_image_diff[order]
             for i_diff_label in range(10):
@@ -232,8 +233,6 @@ class ClientsGroup(object):
                                      label_p,
                                      labelLength, self.dev)
                     self.clients_set['client{}'.format(i_index*10+j_index)] = someone
-
-
 
 
 class Cluster(object):

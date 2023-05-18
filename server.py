@@ -38,12 +38,12 @@ parser.add_argument('-sf', '--save_freq', type=int, default=50, help='global mod
 # n um_comm 表示通信次数，此处设置为1k
 parser.add_argument('-ncomm', '--num_comm', type=int, default=1000, help='number of communications')
 parser.add_argument('-sp', '--save_path', type=str, default='./checkpoints', help='the saving path of checkpoints')
-parser.add_argument('-iid', '--IID', type=int, default=1, help='the way to allocate data to clients')
-parser.add_argument('-threshold', '--thresholdValue', type=float, default=0.8, help='set the thresValue in repoison')
-parser.add_argument('-dp', '--dropout', type=float, default=0.3, help='set the dropout level in net')
+parser.add_argument('-iid', '--IID', type=int, default=0, help='the way to allocate data to clients')
+parser.add_argument('-threshold', '--thresholdValue', type=float, default=0, help='set the thresValue in repoison')
+parser.add_argument('-dp', '--dropout', type=float, default=0.5, help='set the dropout level in net')
 parser.add_argument('-op', '--opti', type=str, default='SGD', help='set the opti in net')
-parser.add_argument('-poipro', '--poisonprob', type=float, default=0.7, help='poison data')
-parser.add_argument('-revprob', '--reverseprob', type=float, default=0.5, help='set the reverprob')
+parser.add_argument('-poipro', '--poisonprob', type=float, default=0, help='poison data')
+parser.add_argument('-revprob', '--reverseprob', type=float, default=0, help='set the reverprob')
 parser.add_argument('-repoi', '--repoisonalgorithms', type=str, default='trainBehavior', help='set the repoison algorithms')
 
 
@@ -190,6 +190,8 @@ if __name__ == "__main__":
         print('client{}'.format(waittingclient), clusterIndex)
         clustergroup[clusterIndex].addClient(clientList[waittingclient], globalP)
         # 完成聚类
+    for i in range(k):
+        print("cluster{}的长度为".format(i), len(clustergroup[i].client))
 
     # 模拟中毒攻击，进行标签反转
     if args['poisonprob']:
@@ -229,7 +231,6 @@ if __name__ == "__main__":
         #开始训练
         client_parameters = None
         for cluster in tqdm(clustergroup):
-            i = 0
             local_parameters = global_parameters
             for clientInCluster in cluster.client:
                 client_parameters = clientInCluster.localUpdate(args['epoch'], args['batchsize'], net, loss_func, opti, local_parameters)
@@ -252,6 +253,7 @@ if __name__ == "__main__":
         elif args['repoisonalgorithms'] == 'trimmed_mean':
             arguments = Args(k, 2, 0.8)
             global_parameters = trimmed_mean(blockchain, arguments)
+            # global_parameters = trimmed_mean(blockchain, 0.2)
             print("使用trimmed_mean安全聚合算法完成聚合")
 
         #  加载Server在最后得到的模型参数
