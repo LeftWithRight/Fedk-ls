@@ -45,20 +45,17 @@ def trainBehavior(blockchain, threshold):
     thresholdVlaue = threshold * max_acc
     print("\n" + 'thresholdVlaue: {}'.format(thresholdVlaue))
     for i in range((length-10), length):
-        # print("\n" + 'simlarity {}'.format(pearson_similarity(blockchain[i].bp, blockchain[max_index].bp)))
-        # similarity = F.cosine_similarity(blockchain[i].bp, blockchain[max_index].bp, dim=0)
-        # print(pearson_sim(blockchain[i].bp, blockchain[max_index].bp))
         if blockchain[i].get_accu() > thresholdVlaue and pearson_sim(blockchain[i].params, blockchain[max_index].params) > threshold:
             lst.append(i)
-    print("参与此次模型聚合的局部模型数量：" + str(len(lst)), "区块链中的下标", lst)
+    print("参与此次模型聚合的局部模型数量：" + str(len(lst)))
     w = []
     for i in lst:
         w.append(blockchain[i].get_para())
     num_models = len(w)
-    if num_models > 1:
-        num_non_malicious = num_models -1
+    if num_models == 1:
+        return w[0]
     else:
-        num_non_malicious = 0
+        num_non_malicious = num_models
     distances = np.zeros((num_models, num_models))
     for i in range(num_models):
         for j in range(i):
@@ -66,11 +63,22 @@ def trainBehavior(blockchain, threshold):
             for param_name, param_value in w[i].items():
                 dist += np.linalg.norm(param_value - w[j][param_name])
             distances[i, j] = distances[j, i] = dist
+    sorted_distances = np.sort(distances, axis=1)
+    selected_distances = sorted_distances[:, :num_non_malicious]
 
-    errors = np.sum(np.sort(distances, axis=1)[:, :num_non_malicious], axis=1)
+    # 计算选择的距离之和
+    errors = np.sum(selected_distances, axis=1)
+
+    # 找到最小错误值对应的模型索引
     krum_index = np.argmin(errors)
+    print(len(w))
+    print(krum_index)
 
+    # 返回最佳模型
     return w[krum_index]
+
+
+
 
 
 
@@ -90,7 +98,13 @@ def krum(blockchain, args):  # w中存储的是所有分簇的模型参数 args�
                 dist += np.linalg.norm(param_value - w[j][param_name])
             distances[i, j] = distances[j, i] = dist
 
-    errors = np.sum(np.sort(distances, axis=1)[:, :num_non_malicious], axis=1)
+    sorted_distances = np.sort(distances, axis=1)
+    selected_distances = sorted_distances[:, :num_non_malicious]
+
+    # 计算选择的距离之和
+    errors = np.sum(selected_distances, axis=1)
+
+    # 找到最小错误值对应的模型索引
     krum_index = np.argmin(errors)
 
     return w[krum_index]
