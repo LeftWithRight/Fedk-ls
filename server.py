@@ -197,7 +197,7 @@ if __name__ == "__main__":
     if args['poisonprob']:
         pro = args['poisonprob']
         poison_number = int(k * pro)
-        print("模拟中毒攻击，对.{}个分簇标签反转".format(poison_number))
+        print("模拟中毒攻击，对{}个分簇标签反转".format(poison_number))
         indexslist = list(range(k))  # 创建包含0到9的列表
         random_index_numbers = random.sample(indexslist, poison_number)  # 从列表中随机选择3个不重复的数
         print(random_index_numbers)
@@ -205,6 +205,7 @@ if __name__ == "__main__":
             poison_cluster = clustergroup[poisonIndex]
             for poisonclient in poison_cluster.client:
                 poisonclient.reverse_labels(args['reverseprob'])
+        print("完成模拟标签反转攻击")
 
     blockchain = [Block.create_genesis_block(global_parameters)]
     # 通讯次数一共
@@ -230,14 +231,14 @@ if __name__ == "__main__":
 
         #开始训练
         client_parameters = None
-        for cluster in tqdm(clustergroup):
+        for index, cluster in tqdm(enumerate(clustergroup), total=len(clustergroup)):
             local_parameters = global_parameters
             for clientInCluster in cluster.client:
                 client_parameters = clientInCluster.localUpdate(args['epoch'], args['batchsize'], net, loss_func, opti, local_parameters)
                 local_parameters = client_parameters
             # 上传分簇模型参数到区块链
             blockchainLength = len(blockchain)
-            clustername = 'cluster{}'.format(i)
+            clustername = 'cluster{}'.format(index)
             accuracy = getAccuracy(net, local_parameters, loss_func, testDataLoader)
             blockchain.append(Block(blockchain[blockchainLength - 1].hash, clustername + "创建一个新的区块并上传参数", local_parameters, datetime.datetime.now(), accuracy))
             print(clustername + "创建一个新的区块并上传参数")
@@ -253,7 +254,7 @@ if __name__ == "__main__":
         elif args['repoisonalgorithms'] == 'trimmed_mean':
             arguments = Args(k, 2, 0.8)
             global_parameters = trimmed_mean(blockchain, arguments)
-            # global_parameters = trimmed_mean(blockchain, 0.2)
+            # global_parameters = trimmed_mean(blockchain)
             print("使用trimmed_mean安全聚合算法完成聚合")
 
         #  加载Server在最后得到的模型参数

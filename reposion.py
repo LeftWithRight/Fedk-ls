@@ -135,11 +135,11 @@ def trimmed_mean(blockchain, args):
     for k in w_avg.keys():
         tmp = []
         for i in range(len(w)):
-            tmp.append(w[i][k].cpu().numpy()) # get the weight of k-layer which in each client
+            tmp.append(w[i][k].numpy()) # get the weight of k-layer which in each client
         tmp = np.array(tmp)
-        med = np.median(tmp,axis=0)
+        med = np.median(tmp, axis=0)
         new_tmp = []
-        for i in range(len(tmp)):# cal each client weights - median
+        for i in range(len(tmp)):             # cal each client weights - median
             new_tmp.append(tmp[i]-med)
         new_tmp = np.array(new_tmp)
         good_vals = np.argsort(np.abs(new_tmp), axis=0)[:number_to_consider]
@@ -147,3 +147,29 @@ def trimmed_mean(blockchain, args):
         k_weight = np.array(np.mean(good_vals) + med)
         w_avg[k] = torch.from_numpy(k_weight)
     return w_avg
+
+
+# def trimmed_mean(blockchain):
+#     length = len(blockchain)
+#     param_list = []
+#     for i in range(length - 10, length):
+#         param_list.append(blockchain[i].get_para())
+#     num_params = len(param_list)
+#     num_to_consider = int(num_params * 0.9)  # Consider 90% of the parameters
+#
+#     aggregated_params = copy.deepcopy(param_list[0])  # Initialize aggregated params as a deep copy of the first parameter dict
+#
+#     # Calculate trimmed mean for each parameter in the list
+#     for key in aggregated_params.keys():
+#         param_vals = [param[key] for param in param_list]
+#         param_vals = [val.numpy() if isinstance(val, torch.Tensor) else val for val in
+#                       param_vals]  # Convert tensors to numpy arrays
+#         sorted_vals = np.sort(param_vals)
+#         trimmed_vals = sorted_vals[:num_to_consider]  # Take the lowest num_to_consider values
+#         trimmed_mean = np.mean(trimmed_vals)  # Calculate the trimmed mean
+#         trimmed_mean = torch.tensor(trimmed_mean)  # Convert back to torch.Tensor
+#
+#
+#         aggregated_params[key] = trimmed_mean  # Set the aggregated parameter value to the trimmed mean
+#
+#     return aggregated_params

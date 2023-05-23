@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8dc1068d-3cc5-4558-a880-2a7860df843a" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/FedSM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FedSM.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reposion.py" beforeDir="false" afterPath="$PROJECT_DIR$/reposion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_accuracy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test_accuracy.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +38,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.repoison">
+  <component name="RunManager" selected="Python 测试.Python 测试 (server.py 内)">
     <configuration name="Block" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="FedSM" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -56,27 +61,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Iid - loss" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FedSM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.5" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.5/Iid - loss.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Iid" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="FedSM" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,11 +69,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.5" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.5/Iid.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1/Iid.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -128,11 +112,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.5" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.5/NoIid - loss.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1/NoIid - loss.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -148,12 +132,13 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.5" />
+      <option name="SDK_HOME" value="C:\Users\zhu18\anaconda3\python.exe" />
+      <option name="SDK_NAME" value="Python 3.9 (base)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.5/NoIid.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../printpicture/matplot0.1/localEpoch==1/NoIid.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -228,27 +213,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="repoison" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FedSM" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="F:/final/finalbackup/matplot" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="F:/final/finalbackup/matplot/repoison.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="reposion" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="FedSM" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -293,27 +257,62 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="FedSM" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../model" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../model/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python 测试 (server.py 内)" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="FedSM" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/server.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.server" />
       <item itemvalue="Python.Block" />
+      <item itemvalue="Python.Models" />
+      <item itemvalue="Python.NoIidClient" />
       <item itemvalue="Python.client" />
       <item itemvalue="Python.getData" />
-      <item itemvalue="Python.Models" />
       <item itemvalue="Python.reposion" />
-      <item itemvalue="Python.NoIidClient" />
-      <item itemvalue="Python.repoison" />
+      <item itemvalue="Python.server" />
+      <item itemvalue="Python.test" />
       <item itemvalue="Python.Iid" />
-      <item itemvalue="Python.Iid - loss" />
       <item itemvalue="Python.NoIid" />
       <item itemvalue="Python.NoIid - loss" />
+      <item itemvalue="Python 测试.Python 测试 (server.py 内)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.repoison" />
-        <item itemvalue="Python.Iid" />
+        <item itemvalue="Python 测试.Python 测试 (server.py 内)" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.NoIid" />
         <item itemvalue="Python.NoIid - loss" />
-        <item itemvalue="Python.Iid - loss" />
+        <item itemvalue="Python.Iid" />
       </list>
     </recent_temporary>
   </component>

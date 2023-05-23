@@ -58,7 +58,6 @@ class client(object):
         labels = self.train_ds.tensors[1]
         reversed_labels = torch.where(torch.rand(labels.size()) < reverseprob, labels.max() - labels, labels)
         self.train_ds = TensorDataset(images, reversed_labels)
-        # self.train_ds = (images, reversed_labels)
 
     def local_val(self):
         pass
