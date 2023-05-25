@@ -285,7 +285,7 @@ def calculateClusterLgsBeforeAdd(cluster, client, globalLabelP):
     return lgsRatio
 
 
-def getAccuracy(net, parameters, loss_func, testDataLoader):
+def getAccuracy(net, parameters, testDataLoader):
     net.load_state_dict(parameters, strict=True)
     dev = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     sum_accu = 0

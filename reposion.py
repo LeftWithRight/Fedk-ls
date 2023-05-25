@@ -30,6 +30,51 @@ def pearson_sim(param_diff1, param_diff2):
     return similarity
 
 
+# def trainBehavior(blockchain, threshold):
+#     length = len(blockchain)
+#     max_acc = 0
+#
+#     # 获取准确率最好的索引
+#     max_index = None
+#     for i in range(length - 10, length):
+#         if max_acc < blockchain[i].get_accu():
+#             max_acc = blockchain[i].get_accu()
+#             max_index = i
+#     lst = []
+#     thresholdVlaue = threshold * max_acc
+#     print("\n" + 'thresholdVlaue: {}'.format(thresholdVlaue))
+#     for i in range((length-10), length):
+#         if blockchain[i].get_accu() > thresholdVlaue and pearson_sim(blockchain[i].params, blockchain[max_index].params) > threshold:
+#             lst.append(i)
+#     print("参与此次模型聚合的局部模型数量：" + str(len(lst)))
+#     distances = defaultdict(dict)
+#     non_malicious_count = len(lst)
+#     num = 0
+#     w = []
+#     for i in lst:
+#         w.append(blockchain[i].get_para())
+#     num_models = len(w)
+#     for k in w[0].keys():
+#         if num == 0:
+#             for i in range(len(w)):
+#                 for j in range(i):
+#                     distances[i][j] = distances[j][i] = np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())
+#             num = 1
+#         else:
+#             for i in range(len(w)):
+#                 for j in range(i):
+#                     distances[j][i] += np.linalg.norm(w[i][k].cpu().numpy() - w[j][k].cpu().numpy())
+#                     distances[i][j] += distances[j][i]
+#     minimal_error = 1e20
+#     minimal_error_index = 0
+#     for user in distances.keys():
+#         errors = sorted(distances[user].values())
+#         current_error = sum(errors[:non_malicious_count])
+#         if current_error < minimal_error:
+#             minimal_error = current_error
+#             minimal_error_index = user
+#     return w[minimal_error_index]
+
 def trainBehavior(blockchain, threshold):
     length = len(blockchain)
     max_acc = 0
@@ -45,24 +90,28 @@ def trainBehavior(blockchain, threshold):
     thresholdVlaue = threshold * max_acc
     print("\n" + 'thresholdVlaue: {}'.format(thresholdVlaue))
     for i in range((length-10), length):
+        # print("\n" + 'simlarity {}'.format(pearson_similarity(blockchain[i].bp, blockchain[max_index].bp)))
+        # similarity = F.cosine_similarity(blockchain[i].bp, blockchain[max_index].bp, dim=0)
+        # print(pearson_sim(blockchain[i].bp, blockchain[max_index].bp))
         if blockchain[i].get_accu() > thresholdVlaue and pearson_sim(blockchain[i].params, blockchain[max_index].params) > threshold:
             lst.append(i)
-    print("参与此次模型聚合的局部模型数量：" + str(len(lst)))
+    print("参与此次模型聚合的局部模型数量：" + str(len(lst)), "区块链中的下标", lst)
     w = []
     for i in lst:
-        w.append(blockchain[i].get_para())
-    num_models = len(w)
-    if num_models == 1:
-        return w[0]
-    else:
-        num_non_malicious = num_models
+        w.append(blockchain[i].params)
+    num_models = len(lst)
+    num_non_malicious = num_models
     distances = np.zeros((num_models, num_models))
     for i in range(num_models):
         for j in range(i):
             dist = 0
             for param_name, param_value in w[i].items():
-                dist += np.linalg.norm(param_value - w[j][param_name])
+                t = param_value.cpu().numpy()
+                t1 = w[j][param_name].cpu().numpy()
+                dist += np.linalg.norm(t - t1)
+                # dist += torch.norm(param_value - w[j][param_name]).item()
             distances[i, j] = distances[j, i] = dist
+
     sorted_distances = np.sort(distances, axis=1)
     selected_distances = sorted_distances[:, :num_non_malicious]
 
@@ -71,15 +120,8 @@ def trainBehavior(blockchain, threshold):
 
     # 找到最小错误值对应的模型索引
     krum_index = np.argmin(errors)
-    print(len(w))
-    print(krum_index)
 
-    # 返回最佳模型
     return w[krum_index]
-
-
-
-
 
 
 def krum(blockchain, args):  # w中存储的是所有分簇的模型参数 args存储标签反转数据信息
@@ -95,7 +137,7 @@ def krum(blockchain, args):  # w中存储的是所有分簇的模型参数 args�
         for j in range(i):
             dist = 0
             for param_name, param_value in w[i].items():
-                dist += np.linalg.norm(param_value - w[j][param_name])
+                dist += np.linalg.norm(param_value.cpu().numpy() - w[j][param_name].cpu().numpy())
             distances[i, j] = distances[j, i] = dist
 
     sorted_distances = np.sort(distances, axis=1)

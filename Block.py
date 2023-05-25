@@ -1,12 +1,13 @@
 import datetime
 import hashlib
+import copy
 
 
 class Block:
     def __init__(self, previous_block_hash, transaction, params, timestamp, accuracy):
         self.previous_block_hash = previous_block_hash
         self.transaction = transaction
-        self.params = params
+        self.params = copy.deepcopy(params)
         self.timestamp = timestamp
         self.accuracy = accuracy
         self.hash = self.get_hash()

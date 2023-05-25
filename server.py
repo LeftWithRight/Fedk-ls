@@ -23,7 +23,7 @@ parser.add_argument('-nc', '--num_of_clients', type=int, default=100, help='nume
 parser.add_argument('-cf', '--cfraction', type=float, default=1,
                     help='C fraction, 0 means 1 client, 1 means total clients')
 # 训练次数(客户端更新次数)
-parser.add_argument('-E', '--epoch', type=int, default=5, help='local train epoch')
+parser.add_argument('-E', '--epoch', type=int, default=2, help='local train epoch')
 # batchsize大小
 parser.add_argument('-B', '--batchsize', type=int, default=10, help='local train batch size')
 # 模型名称
@@ -37,13 +37,13 @@ parser.add_argument('-vf', "--val_freq", type=int, default=5, help="model valida
 parser.add_argument('-sf', '--save_freq', type=int, default=50, help='global model save frequency(of communication)')
 # n um_comm 表示通信次数，此处设置为1k
 parser.add_argument('-ncomm', '--num_comm', type=int, default=1000, help='number of communications')
-parser.add_argument('-sp', '--save_path', type=str, default='./checkpoints', help='the saving path of checkpoints')
-parser.add_argument('-iid', '--IID', type=int, default=0, help='the way to allocate data to clients')
-parser.add_argument('-threshold', '--thresholdValue', type=float, default=0, help='set the thresValue in repoison')
-parser.add_argument('-dp', '--dropout', type=float, default=0.5, help='set the dropout level in net')
+parser.add_argument('-sp', '--save_path', type=str, default='../checkpoints', help='the saving path of checkpoints')
+parser.add_argument('-iid', '--IID', type=int, default=1, help='the way to allocate data to clients')
+parser.add_argument('-threshold', '--thresholdValue', type=float, default=0.8, help='set the thresValue in repoison')
+parser.add_argument('-dp', '--dropout', type=float, default=0.1, help='set the dropout level in net')
 parser.add_argument('-op', '--opti', type=str, default='SGD', help='set the opti in net')
-parser.add_argument('-poipro', '--poisonprob', type=float, default=0, help='poison data')
-parser.add_argument('-revprob', '--reverseprob', type=float, default=0, help='set the reverprob')
+parser.add_argument('-poipro', '--poisonprob', type=float, default=0.7, help='poison data')
+parser.add_argument('-revprob', '--reverseprob', type=float, default=0.4, help='set the reverprob')
 parser.add_argument('-repoi', '--repoisonalgorithms', type=str, default='trainBehavior', help='set the repoison algorithms')
 
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
             # 上传分簇模型参数到区块链
             blockchainLength = len(blockchain)
             clustername = 'cluster{}'.format(index)
-            accuracy = getAccuracy(net, local_parameters, loss_func, testDataLoader)
+            accuracy = getAccuracy(net, local_parameters, testDataLoader)
             blockchain.append(Block(blockchain[blockchainLength - 1].hash, clustername + "创建一个新的区块并上传参数", local_parameters, datetime.datetime.now(), accuracy))
             print(clustername + "创建一个新的区块并上传参数")
 
