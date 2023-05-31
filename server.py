@@ -42,9 +42,9 @@ parser.add_argument('-iid', '--IID', type=int, default=1, help='the way to alloc
 parser.add_argument('-threshold', '--thresholdValue', type=float, default=0.8, help='set the thresValue in repoison')
 parser.add_argument('-dp', '--dropout', type=float, default=0.1, help='set the dropout level in net')
 parser.add_argument('-op', '--opti', type=str, default='SGD', help='set the opti in net')
-parser.add_argument('-poipro', '--poisonprob', type=float, default=0.7, help='poison data')
+parser.add_argument('-poipro', '--poisonprob', type=float, default=0.8, help='poison data')
 parser.add_argument('-revprob', '--reverseprob', type=float, default=0.4, help='set the reverprob')
-parser.add_argument('-repoi', '--repoisonalgorithms', type=str, default='trainBehavior', help='set the repoison algorithms')
+parser.add_argument('-repoi', '--repoisonalgorithms', type=str, default='trimmed_mean', help='set the repoison algorithms')
 
 
 
